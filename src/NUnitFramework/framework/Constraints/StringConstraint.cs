@@ -98,7 +98,7 @@ namespace NUnit.Framework.Constraints
 
             return new ConstraintResult(this, actual, Matches(actualAsString));
         }
-
+               
         /// <summary>
         /// Test whether the constraint is satisfied by a given string
         /// </summary>

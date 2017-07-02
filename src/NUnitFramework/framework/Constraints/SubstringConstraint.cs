@@ -52,7 +52,7 @@ namespace NUnit.Framework.Constraints
         /// <returns>True for success, false for failure</returns>
         protected override bool Matches(string actual)
         {
-            return actual != null && actual.IndexOf(expected) >= 0;
+            return actual != null && actual.IndexOf(expected, comparisonType) >= 0;
         }
 
         /// <summary>
