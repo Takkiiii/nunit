@@ -31,9 +31,6 @@ namespace NUnit.Framework.Constraints
     /// </summary>
     public class SubstringConstraint : StringConstraint
     {
-        /// <summary>
-        /// Indicates whether tests should be case-insensitive
-        /// </summary>
         private StringComparison comparisonType;
 
         /// <summary>
@@ -56,13 +53,12 @@ namespace NUnit.Framework.Constraints
         }
 
         /// <summary>
-        /// Flag the constraint to use the supplied StringComparison type.
+        /// Overrides the <see cref="StringConstraint.IgnoreCase"/> setting and instead uses the specified comparison.
         /// </summary>
-        /// <param name="comparisonType ">The StringComparison type to be used.</param>
-        /// <returns>Self.</returns>
-        public SubstringConstraint Using(StringComparison comparisonType)
+        public SubstringConstraint Using(StringComparison? comparisonType)
         {
-            this.comparisonType = comparisonType;
+            this.comparisonType = comparisonType ?? (caseInsensitive ? 
+                StringComparison.CurrentCultureIgnoreCase : StringComparison.Ordinal);
             return this;
         }
     }
