@@ -45,6 +45,20 @@ namespace NUnit.Framework.Constraints
             new TestCaseData( "What the hell?", "\"What the hell?\"" ),
             new TestCaseData( string.Empty, "<string.Empty>" ),
             new TestCaseData( null, "null" ) };
+
+        [TestCase]
+        public void Using_CurrentCulture()
+        {
+            Assert.That(" ss ", Contains.Substring("ß").Using(StringComparison.CurrentCulture));
+            Assert.That(" SS ", new NotConstraint(Contains.Substring("ß").Using(StringComparison.CurrentCulture)));
+        }
+
+        [TestCase]
+        public void Using_Ordinal()
+        {
+            Assert.That(" ss ", Contains.Substring("s").Using(StringComparison.Ordinal));
+            Assert.That(" SS ", new NotConstraint(Contains.Substring("s").Using(StringComparison.Ordinal)));
+        }
     }
 
     [TestFixture]
@@ -65,6 +79,20 @@ namespace NUnit.Framework.Constraints
             new TestCaseData( "What the hell?", "\"What the hell?\"" ),
             new TestCaseData( string.Empty, "<string.Empty>" ),
             new TestCaseData( null, "null" ) };
+
+        [TestCase]
+        public void Using_CurrentCultureIgnoreCase()
+        {
+            Assert.That(" ss ", Contains.Substring("ß").Using(StringComparison.CurrentCultureIgnoreCase));
+            Assert.That(" SS ", Contains.Substring("ß").Using(StringComparison.CurrentCultureIgnoreCase));
+        }
+
+        [TestCase]
+        public void Using_OrdinalIgnoreCase()
+        {
+            Assert.That(" ss ", Contains.Substring("s").Using(StringComparison.OrdinalIgnoreCase));
+            Assert.That(" SS ", Contains.Substring("s").Using(StringComparison.OrdinalIgnoreCase));
+        }
     }
 
     //[TestFixture]

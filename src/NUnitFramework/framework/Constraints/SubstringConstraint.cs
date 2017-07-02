@@ -21,6 +21,8 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
+using System;
+
 namespace NUnit.Framework.Constraints
 {
     /// <summary>
@@ -29,6 +31,11 @@ namespace NUnit.Framework.Constraints
     /// </summary>
     public class SubstringConstraint : StringConstraint
     {
+        /// <summary>
+        /// Indicates whether tests should be case-insensitive
+        /// </summary>
+        private StringComparison comparisonType;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SubstringConstraint"/> class.
         /// </summary>
@@ -45,10 +52,18 @@ namespace NUnit.Framework.Constraints
         /// <returns>True for success, false for failure</returns>
         protected override bool Matches(string actual)
         {
-            if (this.caseInsensitive)
-                return actual != null && actual.ToLower().IndexOf(expected.ToLower()) >= 0;
-            else
-                return actual != null && actual.IndexOf(expected) >= 0;
+            return actual != null && actual.IndexOf(expected, comparisonType) >= 0;
+        }
+
+        /// <summary>
+        /// Flag the constraint to use the supplied StringComparison type.
+        /// </summary>
+        /// <param name="comparisonType ">The StringComparison type to be used.</param>
+        /// <returns>Self.</returns>
+        public SubstringConstraint Using(StringComparison comparisonType)
+        {
+            this.comparisonType = comparisonType;
+            return this;
         }
     }
 }
