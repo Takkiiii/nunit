@@ -100,6 +100,25 @@ namespace NUnit.Framework.Constraints
         }
 
         /// <summary>
+        /// Flag the constraint to use the supplied StringComparison enum.
+        /// </summary>
+        /// <param name="comparer">The StringComparison enum to use.</param>
+        /// <returns>Self.</returns>
+        public StringConstraint Using(StringComparison comparer)
+        {
+            if (comparer == StringComparison.CurrentCulture ||
+                comparer == StringComparison.InvariantCulture ||
+                comparer == StringComparison.Ordinal)
+            {
+                caseInsensitive = false;
+            }
+            else
+                caseInsensitive = true;
+
+            return this;
+        }
+
+        /// <summary>
         /// Test whether the constraint is satisfied by a given string
         /// </summary>
         /// <param name="actual">The string to be tested</param>
