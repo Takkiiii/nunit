@@ -58,7 +58,7 @@ namespace NUnit.Framework.Constraints
         public SubstringConstraint Using(StringComparison? comparisonType)
         {
             this.comparisonType = comparisonType ?? (caseInsensitive ? 
-                StringComparison.CurrentCultureIgnoreCase : StringComparison.Ordinal);
+                StringComparison.CurrentCultureIgnoreCase : StringComparison.CurrentCulture);
             return this;
         }
     }
