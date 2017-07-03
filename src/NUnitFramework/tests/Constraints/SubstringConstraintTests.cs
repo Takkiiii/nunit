@@ -78,7 +78,7 @@ namespace NUnit.Framework.Constraints
         [TestCase(" SS ", "ß", false, StringComparison.CurrentCultureIgnoreCase, true)]
         [TestCase(" ss ", "s", false, StringComparison.CurrentCultureIgnoreCase, true)]
         [TestCase(" SS ", "s", false, StringComparison.CurrentCultureIgnoreCase, true)]
-#if !NETSTANDARD1_3
+#if !(NETSTANDARD1_3 || NETSTANDARD1_6)
         [TestCase(" ss ", "ß", false, StringComparison.InvariantCulture, true)]
         [TestCase(" SS ", "ß", false, StringComparison.InvariantCulture, false)]
         [TestCase(" ss ", "s", false, StringComparison.InvariantCulture, true)]
@@ -97,7 +97,7 @@ namespace NUnit.Framework.Constraints
         [TestCase(" ss ", "s", false, StringComparison.OrdinalIgnoreCase, true)]
         [TestCase(" SS ", "s", false, StringComparison.OrdinalIgnoreCase, true)]
 
-        [TestCase(" ss ", "ß", false, null, false)]
+        [TestCase(" ss ", "ß", false, null, true)]
         [TestCase(" SS ", "ß", false, null, false)]
         [TestCase(" ss ", "s", false, null, true)]
         [TestCase(" SS ", "s", false, null, false)]
@@ -110,7 +110,7 @@ namespace NUnit.Framework.Constraints
         [TestCase(" SS ", "ß", true, StringComparison.CurrentCultureIgnoreCase, true)]
         [TestCase(" ss ", "s", true, StringComparison.CurrentCultureIgnoreCase, true)]
         [TestCase(" SS ", "s", true, StringComparison.CurrentCultureIgnoreCase, true)]
-#if !NETSTANDARD1_3            
+#if !(NETSTANDARD1_3 || NETSTANDARD1_6)           
         [TestCase(" ss ", "ß", true, StringComparison.InvariantCulture, true)]
         [TestCase(" SS ", "ß", true, StringComparison.InvariantCulture, false)]
         [TestCase(" ss ", "s", true, StringComparison.InvariantCulture, true)]
