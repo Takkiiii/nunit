@@ -80,7 +80,7 @@ namespace NUnit.Framework.Constraints
         /// <summary>
         /// Modify the constraint to ignore case in matching.
         /// </summary>
-        public StringConstraint IgnoreCase
+        public virtual StringConstraint IgnoreCase
         {
             get { caseInsensitive = true; return this; }
         }
