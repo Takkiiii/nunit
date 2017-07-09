@@ -22,6 +22,7 @@
 // ***********************************************************************
 
 using System;
+using System.Globalization;
 
 namespace NUnit.Framework.Constraints
 {
@@ -31,7 +32,7 @@ namespace NUnit.Framework.Constraints
     /// </summary>
     public class SubstringConstraint : StringConstraint
     {
-        private StringComparison comparisonType;
+        private StringComparison? comparisonType;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SubstringConstraint"/> class.
@@ -43,22 +44,34 @@ namespace NUnit.Framework.Constraints
         }
 
         /// <summary>
+        /// Modify the constraint to ignore case in matching.
+        /// </summary>
+        public override StringConstraint IgnoreCase
+        {
+            get { caseInsensitive = true; comparisonType = null; return this; }
+        }
+
+        /// <summary>
         /// Test whether the constraint is satisfied by a given value
         /// </summary>
         /// <param name="actual">The value to be tested</param>
         /// <returns>True for success, false for failure</returns>
         protected override bool Matches(string actual)
         {
-            return actual != null && actual.IndexOf(expected, comparisonType) >= 0;
+            if (actual == null) return false;
+
+            var actualComparison = comparisonType ?? (caseInsensitive ?
+                StringComparison.CurrentCultureIgnoreCase : StringComparison.CurrentCulture);
+
+            return actual.IndexOf(expected, actualComparison) >= 0;
         }
 
         /// <summary>
-        /// Overrides the <see cref="StringConstraint.IgnoreCase"/> setting and instead uses the specified comparison.
+        /// Modify the constraint to the specified comparison.
         /// </summary>
-        public SubstringConstraint Using(StringComparison? comparisonType)
+        public SubstringConstraint Using(StringComparison comparisonType)
         {
-            this.comparisonType = comparisonType ?? (caseInsensitive ? 
-                StringComparison.CurrentCultureIgnoreCase : StringComparison.CurrentCulture);
+            this.comparisonType = comparisonType;
             return this;
         }
     }
